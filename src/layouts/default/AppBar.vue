@@ -1,37 +1,41 @@
 <template>
   <v-app-bar flat>
-    <v-app-bar-title class="customFont">
-      <v-icon icon="mdi-clock-fast " />
-
-      Express Forms
-    </v-app-bar-title>
-    <v-spacer></v-spacer>
-    <v-text-field v-if="isEditorMode" v-model="search" label="Search"></v-text-field>
-    <!-- v-model="search" -->
-    <v-spacer></v-spacer>
-    <v-btn v-if="isEditorMode" size="large" prepend-icon="mdi-plus">Criar novo form</v-btn>
-
+    <app-bar-home-page v-if="!isEditorMode" />
+    <app-bar-editor-mode v-if="isEditorMode" />
   </v-app-bar>
 </template>
 
 <style></style>
 
 <script lang="ts">
+import AppBarHomePage from '../../components/AppBarHomePage.vue'
+import AppBarEditorMode from '../../components/AppBarEditorMode.vue'
 
 export default {
+  components: {
+    AppBarHomePage,
+    AppBarEditorMode
+  },
   data: () => ({
-    search: '',
-    isEditorMode: false,
+    isEditorMode: true,
   }),
   watch: {
     $route(to) {
+      this.isEditorMode
       if (to.fullPath.match(/\/forms\/[0-9]+/)) {
-        this.isEditorMode = false;
-      } else {
         this.isEditorMode = true;
+      } else {
+        this.isEditorMode = false;
       }
     },
   },
+  beforeMount() {
+    if (this.$route.fullPath.match(/\/forms\/[0-9]+/)) {
+      this.isEditorMode = true;
+    } else {
+      this.isEditorMode = false;
+    }
+  }
 }
 </script>
 
