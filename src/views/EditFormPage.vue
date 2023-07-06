@@ -2,21 +2,21 @@
     <v-card>
         <v-layout>
             <v-navigation-drawer v-model="isDrawerOpen" :permanent="mdAndUp">
-                <v-list-item prepend-avatar="https://randomuser.me/api/portraits/men/78.jpg"
-                    title="John Leider"></v-list-item>
+                <v-list-item title="Available elements"></v-list-item>
 
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <v-list-item prepend-icon="mdi-view-dashboard" title="Home" value="home"></v-list-item>
-                    <v-list-item prepend-icon="mdi-forum" title="About" value="about"></v-list-item>
+                    <!-- aqui vem os itens disponiveis-->
+                    <!-- aqui vem os itens disponiveis-->
+                    <!-- aqui vem os itens disponiveis-->
                 </v-list>
             </v-navigation-drawer>
 
 
             <v-main style="height: 90vh">
                 <div class="d-flex justify-center align-center h-100">
-
+                    <form-editor />
                 </div>
             </v-main>
 
@@ -29,6 +29,7 @@
 import { useDrawerFormEditor } from '@/store/app';
 import { storeToRefs } from 'pinia';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
+import FormEditor from '@/components/FormEditor.vue'
 
 export default {
     setup() {
@@ -37,6 +38,9 @@ export default {
         const { mdAndUp } = useDisplay()
 
         return { isDrawerOpen, mdAndUp }
+    },
+    components: {
+        FormEditor,
     },
     methods: {
     },

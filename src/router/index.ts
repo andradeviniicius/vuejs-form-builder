@@ -23,9 +23,9 @@ const routes = [
     children: [
       {
         path: "",
-        name: "FormEditor",
+        name: "EditFormPage",
         component: () =>
-          import(/* webpackChunkName: "home" */ "@/views/FormEditor.vue"),
+          import(/* webpackChunkName: "home" */ "@/views/EditFormPage.vue"),
       },
     ],
   },
