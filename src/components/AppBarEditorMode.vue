@@ -49,7 +49,7 @@
 <script lang="ts">
 import { useDisplay } from 'vuetify';
 
-import { useDrawerFormEditor } from '../store/app'
+import { useDrawerFormEditor } from '@/store/app'
 import { storeToRefs } from 'pinia';
 
 export default {
@@ -58,6 +58,7 @@ export default {
         const store = useDrawerFormEditor();
         const { isDrawerOpen } = storeToRefs(store)
         const { mdAndUp } = useDisplay()
+        
         return {
             mdAndUp,
 

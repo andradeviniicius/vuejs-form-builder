@@ -11,3 +11,17 @@ export const useDrawerFormEditor = defineStore("app", {
     },
   },
 });
+
+export const useDraggableStore = defineStore("draggableStore", {
+  state: () => {
+    return {
+      list1: [
+        { name: "Campo de texto", id: 1 },
+        { name: "Sim/Não", id: 2 },
+      ],
+      list2: [
+      ],
+    };
+  },
+  actions: {},
+});

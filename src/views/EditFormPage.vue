@@ -7,9 +7,14 @@
                 <v-divider></v-divider>
 
                 <v-list density="compact" nav>
-                    <!-- aqui vem os itens disponiveis-->
-                    <!-- aqui vem os itens disponiveis-->
-                    <!-- aqui vem os itens disponiveis-->
+                    <draggable class="dragArea list-group" :list="list1"
+                        :group="{ name: 'people', pull: 'clone', put: false }" item-key="name">
+                        <template #item="{ element }">
+                            <div class="list-group-item">
+                                {{ element.name }}
+                            </div>
+                        </template>
+                    </draggable>
                 </v-list>
             </v-navigation-drawer>
 
@@ -26,21 +31,24 @@
 </template>
 
 <script lang="ts">
-import { useDrawerFormEditor } from '@/store/app';
+import { useDraggableStore, useDrawerFormEditor } from '@/store/app';
 import { storeToRefs } from 'pinia';
 import { useDisplay } from 'vuetify/lib/framework.mjs';
 import FormEditor from '@/components/FormEditor.vue'
+import draggable from 'vuedraggable'
 
 export default {
     setup() {
-        const store = useDrawerFormEditor();
-        const { isDrawerOpen } = storeToRefs(store)
+        const drawerStore = useDrawerFormEditor();
+        const { isDrawerOpen } = storeToRefs(drawerStore)
         const { mdAndUp } = useDisplay()
-
-        return { isDrawerOpen, mdAndUp }
+        const draggableStore = useDraggableStore();
+        const { list1 } = storeToRefs(draggableStore)
+        return { isDrawerOpen, mdAndUp, list1 }
     },
     components: {
         FormEditor,
+        draggable
     },
     methods: {
     },
