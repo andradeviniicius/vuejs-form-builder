@@ -1,19 +1,45 @@
 <template>
-    <v-app-bar-title class="customFont">
-        <v-icon icon="mdi-clock-fast " />
+    <v-container fluid>
+        <v-row justify="space-between" align="center">
+            <v-col class="d-flex">
+                <v-app-bar-title>
+                    <v-sheet class="d-flex">
+                        <v-icon icon="mdi-clock-fast " />
+                        <p v-if="mdAndUp">
+                            Express Forms
+                        </p>
+                    </v-sheet>
 
-        Express Forms
-    </v-app-bar-title>
-    <v-spacer></v-spacer>
-    <v-text-field v-model="search" label="Search"></v-text-field>
-    <v-spacer></v-spacer>
-    <v-btn size="large" prepend-icon="mdi-plus">Criar novo form</v-btn>
+                </v-app-bar-title>
+            </v-col>
+
+            <v-col>
+                <v-text-field v-model="search" label="Search" single-line hide-details></v-text-field>
+            </v-col>
+            <v-col class="d-flex justify-end">
+                <v-btn v-if="mdAndUp" size="large" prepend-icon="mdi-plus">Criar novo form</v-btn>
+                <v-btn v-if="!mdAndUp" icon="mdi-plus" size="large"></v-btn>
+            </v-col>
+        </v-row>
+
+    </v-container>
 </template>
                        
-    
+<style>
+.container {
+    display: flex;
+
+}
+</style>
 <script lang="ts">
+import { useDisplay } from 'vuetify';
 export default {
     name: 'AppBarHomePage',
+    setup() {
+        const { mobile, mdAndUp, mdAndDown } = useDisplay()
+        return { mobile, mdAndUp, mdAndDown }
+
+    },
     data: () => ({
         search: '',
     }),
