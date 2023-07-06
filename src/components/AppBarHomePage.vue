@@ -25,12 +25,6 @@
     </v-container>
 </template>
                        
-<style>
-.container {
-    display: flex;
-
-}
-</style>
 <script lang="ts">
 import { useDisplay } from 'vuetify';
 export default {
