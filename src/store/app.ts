@@ -1,7 +1,8 @@
 // Utilities
 import { defineStore } from "pinia";
 import { generateUniqueID } from "../utils";
-
+import { FormState, FormItem } from "./types";
+import fakeData from "../assets/fakeData";
 export const useDrawerFormEditor = defineStore("app", {
   state: () => {
     return { isDrawerOpen: true };
@@ -24,7 +25,7 @@ export const useDraggableStore = defineStore("draggableStore", {
     };
   },
   actions: {
-    addFieldToForm({ name }) {
+    addFieldToForm(name: string) {
       const uniqueId = generateUniqueID(this.list2);
 
       return {
@@ -39,53 +40,35 @@ export const useDraggableStore = defineStore("draggableStore", {
 });
 
 export const useRegisteredForms = defineStore("registeredForms", {
-  state: () => {
+  state: (): FormState => {
     return {
-      registeredForms: [
-        {
-          id: 1,
-          formTitle: "Form teste 1",
-          formDescription: "Descricao test 1",
-          addedFields: [
-            { name: "Campo de texto", id: 1 },
-            { name: "Sim/Não", id: 2 },
-          ],
-        },
-        {
-          id: 2,
-          formTitle: "Form teste 2",
-          formDescription: "Descricao test 2",
-          addedFields: [
-            { name: "Campo de texto", id: 1 },
-            { name: "Sim/Não", id: 2 },
-            { name: "Sim/Não", id: 3 },
-            { name: "Sim/Não", id: 4 },
-          ],
-        },
-        {
-          id: 3,
-          formTitle: "Form teste 3",
-          formDescription: "Descricao test 3",
-          addedFields: [
-            { name: "Campo de texto", id: 1 },
-            { name: "Campo de texto", id: 4 },
-            { name: "Campo de texto", id: 6 },
-            { name: "Sim/Não", id: 2 },
-            { name: "Sim/Não", id: 3 },
-            { name: "Sim/Não", id: 4 },
-          ],
-        },
-      ],
+      registeredForms: [...fakeData],
+      filteredForms: [],
+      query: "",
     };
   },
   actions: {
-    addNewForm(formTitle, formDescription, addedFields) {
+    addNewForm({ formTitle, formDescription, addedFields }: FormItem) {
       this.registeredForms.push({
         id: Math.random(),
         formTitle,
         formDescription,
         addedFields,
       });
+    },
+    setFilteredForms(searchTerm: string) {
+      this.filteredForms = this.registeredForms.filter((form) => {
+        const formTitle = form.formTitle.toLowerCase();
+        const formDescription = form.formDescription.toLowerCase();
+        return (
+          formTitle.includes(searchTerm.toLowerCase()) ||
+          formDescription.includes(searchTerm.toLowerCase())
+        );
+      });
+    },
+    setQueryValue(value: string) {
+      this.query = value;
+      this.setFilteredForms(this.query);
     },
   },
 });
