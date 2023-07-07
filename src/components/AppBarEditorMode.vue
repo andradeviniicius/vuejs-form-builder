@@ -1,7 +1,7 @@
 <template>
     <v-container fluid>
         <v-row justify="space-between" align="center">
-            <v-col>
+            <v-col cols="2">
                 <v-btn v-if="mdAndUp" @click="redirectToHomepage" class="ma-2">
                     <v-icon start icon="mdi-arrow-left"></v-icon>
                     <p>
@@ -14,34 +14,31 @@
             </v-col>
 
             <v-col class="d-flex justify-center">
+
                 <v-sheet class="d-flex justify-start">
-                    <v-btn-toggle v-if="mdAndUp" mandatory v-model="toggle_exclusive" rounded="0"
-                        color="deep-purple-accent-3">
-                        <v-btn value="left">
-                            Editar
-                        </v-btn>
+                    <v-card>
+                        <v-tabs v-if="mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
+                            <v-tab :value="1">Editar</v-tab>
+                            <v-tab :value="2">Visualizar</v-tab>
+                        </v-tabs>
 
-                        <v-btn value="center">
-                            Visualizar
-                        </v-btn>
-                    </v-btn-toggle>
 
-                    <v-btn-toggle v-if="!mdAndUp" v-model="toggle_exclusive" mandatory>
-                        <v-btn>
-                            <v-icon>mdi-pencil</v-icon>
-                        </v-btn>
-
-                        <v-btn>
-                            <v-icon>mdi-eye</v-icon>
-                        </v-btn>
-                    </v-btn-toggle>
-
+                        <v-tabs v-if="!mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
+                            <v-tab :value="1">
+                                <v-icon>mdi-pencil</v-icon>
+                            </v-tab>
+                            <v-tab :value="2">
+                                <v-icon>mdi-eye</v-icon>
+                            </v-tab>
+                        </v-tabs>
+                    </v-card>
                 </v-sheet>
             </v-col>
-            <v-col class="d-flex justify-end">
-                <v-btn v-if="!mdAndUp" icon="mdi-menu" color="black" @click="store.toggleDrawer">
+            <v-col v-if="!mdAndUp" class="d-flex justify-end">
+                <v-btn icon="mdi-menu" color="black" @click="store.toggleDrawer">
                 </v-btn>
             </v-col>
+
         </v-row>
     </v-container>
 </template>
@@ -50,7 +47,7 @@
 <script lang="ts">
 import { useDisplay } from 'vuetify';
 
-import { useDrawerFormEditor } from '@/store/app'
+import { useDrawerFormEditor, useToggleEditModeStore } from '@/store/app'
 import { storeToRefs } from 'pinia';
 
 export default {
@@ -58,25 +55,26 @@ export default {
     setup() {
         const store = useDrawerFormEditor();
         const { isDrawerOpen } = storeToRefs(store)
+
+        const toggleEditModeStore = useToggleEditModeStore()
+        const { isEditingMode } = storeToRefs(toggleEditModeStore)
+
         const { mdAndUp } = useDisplay()
+
 
         return {
             mdAndUp,
 
             store,
-            isDrawerOpen
+            isDrawerOpen,
+
+            isEditingMode
         }
     },
     methods: {
         redirectToHomepage() {
             this.$router.push(`/`)
         },
-    },
-    data: () => {
-        return {
-            text: 'center',
-            toggle_exclusive: 0,
-        }
     },
 };
 </script>

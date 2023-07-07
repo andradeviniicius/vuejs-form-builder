@@ -3,7 +3,8 @@ import { defineStore } from "pinia";
 import { generateUniqueID } from "../utils";
 import { FormState, FormItem } from "./types";
 import fakeData from "../assets/fakeData";
-export const useDrawerFormEditor = defineStore("app", {
+
+export const useDrawerFormEditor = defineStore("drawerStore", {
   state: () => {
     return { isDrawerOpen: true };
   },
@@ -14,19 +15,25 @@ export const useDrawerFormEditor = defineStore("app", {
   },
 });
 
+export const useToggleEditModeStore = defineStore("toggleEditModeStore", {
+  state: () => {
+    return { isEditingMode: null };
+  },
+});
+
 export const useDraggableStore = defineStore("draggableStore", {
   state: () => {
     return {
-      list1: [
+      availableElements: [
         { name: "Campo de texto", id: 1 },
         { name: "Sim/Não", id: 2 },
       ],
-      list2: [],
+      addedElements: [],
     };
   },
   actions: {
     addFieldToForm(name: string) {
-      const uniqueId = generateUniqueID(this.list2);
+      const uniqueId = generateUniqueID(this.addedElements);
 
       return {
         id: uniqueId,
@@ -34,7 +41,7 @@ export const useDraggableStore = defineStore("draggableStore", {
       };
     },
     log() {
-      console.log(this.list2);
+      console.log(this.addedElements);
     },
   },
 });
