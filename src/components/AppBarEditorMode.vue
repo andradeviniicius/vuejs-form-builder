@@ -15,7 +15,8 @@
 
             <v-col class="d-flex justify-center">
                 <v-sheet class="d-flex justify-start">
-                    <v-btn-toggle v-if="mdAndUp" mandatory v-model="text" rounded="0" color="deep-purple-accent-3">
+                    <v-btn-toggle v-if="mdAndUp" mandatory v-model="toggle_exclusive" rounded="0"
+                        color="deep-purple-accent-3">
                         <v-btn value="left">
                             Editar
                         </v-btn>
@@ -27,11 +28,11 @@
 
                     <v-btn-toggle v-if="!mdAndUp" v-model="toggle_exclusive" mandatory>
                         <v-btn>
-                            <v-icon>mdi-eye</v-icon>
+                            <v-icon>mdi-pencil</v-icon>
                         </v-btn>
 
                         <v-btn>
-                            <v-icon>mdi-pencil</v-icon>
+                            <v-icon>mdi-eye</v-icon>
                         </v-btn>
                     </v-btn-toggle>
 
@@ -58,7 +59,7 @@ export default {
         const store = useDrawerFormEditor();
         const { isDrawerOpen } = storeToRefs(store)
         const { mdAndUp } = useDisplay()
-        
+
         return {
             mdAndUp,
 
@@ -74,7 +75,7 @@ export default {
     data: () => {
         return {
             text: 'center',
-            toggle_exclusive: 2,
+            toggle_exclusive: 0,
         }
     },
 };

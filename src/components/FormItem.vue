@@ -1,7 +1,9 @@
 
 
 <template>
-    <v-card :text="data.label">
+    <v-card>
+        <v-card-title>{{ data.formTitle }}</v-card-title>
+        <v-card-subtitle>{{ data.formDescription }}</v-card-subtitle>
         <v-card-actions>
             <v-btn @click="redirectToEdit">Editar</v-btn>
         </v-card-actions>
