@@ -1,46 +1,43 @@
 <template>
-    <v-container fluid>
-        <v-row justify="space-between" align="center">
-            <v-col cols="2">
-                <v-btn v-if="mdAndUp" @click="redirectToHomepage" class="ma-2">
-                    <v-icon start icon="mdi-arrow-left"></v-icon>
-                    <p>
+    <v-row justify="space-between" align="center">
+        <v-col :cols="mdAndUp ? '2' : '2'">
+            <v-btn v-if="mdAndUp" @click="redirectToHomepage" class="ma-2">
+                <v-icon start icon="mdi-arrow-left"></v-icon>
+                <p>
 
-                        Back
-                    </p>
-                </v-btn>
+                    Back
+                </p>
+            </v-btn>
 
-                <v-btn v-if="!mdAndUp" @click="redirectToHomepage" icon="mdi-arrow-left"></v-btn>
-            </v-col>
+            <v-btn v-if="!mdAndUp" @click="redirectToHomepage" icon="mdi-arrow-left"></v-btn>
+        </v-col>
 
-            <v-col class="d-flex justify-center">
-
-                <v-sheet class="d-flex justify-start">
-                    <v-card>
-                        <v-tabs v-if="mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
-                            <v-tab :value="1">Editar</v-tab>
-                            <v-tab :value="2">Visualizar</v-tab>
-                        </v-tabs>
+        <v-col class="d-flex justify-center">
+            <v-sheet class="d-flex justify-start">
+                <v-card>
+                    <v-tabs v-if="mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
+                        <v-tab :value="1">Editar</v-tab>
+                        <v-tab :value="2">Visualizar</v-tab>
+                    </v-tabs>
 
 
-                        <v-tabs v-if="!mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
-                            <v-tab :value="1">
-                                <v-icon>mdi-pencil</v-icon>
-                            </v-tab>
-                            <v-tab :value="2">
-                                <v-icon>mdi-eye</v-icon>
-                            </v-tab>
-                        </v-tabs>
-                    </v-card>
-                </v-sheet>
-            </v-col>
-            <v-col v-if="!mdAndUp" class="d-flex justify-end">
-                <v-btn icon="mdi-menu" color="black" @click="store.toggleDrawer">
-                </v-btn>
-            </v-col>
+                    <v-tabs v-if="!mdAndUp" v-model="isEditingMode" color="deep-purple-accent-4" align-tabs="center">
+                        <v-tab :value="1">
+                            <v-icon size="small">mdi-pencil</v-icon>
+                        </v-tab>
+                        <v-tab :value="2">
+                            <v-icon size="small">mdi-eye</v-icon>
+                        </v-tab>
+                    </v-tabs>
+                </v-card>
+            </v-sheet>
+        </v-col>
+        <v-col :cols="mdAndUp ? '' : '2'" v-if="!mdAndUp" class="d-flex justify-end">
+            <v-btn icon="mdi-menu" color="black" @click="store.toggleDrawer">
+            </v-btn>
+        </v-col>
 
-        </v-row>
-    </v-container>
+    </v-row>
 </template>
                        
     

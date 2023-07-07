@@ -40,7 +40,7 @@ const fakeData = [
       { name: "Campo de texto", id: 6 },
       { name: "Sim/Não", id: 2 },
       { name: "Sim/Não", id: 3 },
-      { name: "Sim/Não", id: 4 },
+      { name: "Sim/Não", id: 5 },
     ],
   },
   {
@@ -49,7 +49,7 @@ const fakeData = [
     formDescription: "Descricao test 5",
     addedFields: [
       { name: "Campo de texto", id: 1 },
-      { name: "Campo de texto", id: 4 },
+      { name: "Campo de texto", id: 5 },
       { name: "Campo de texto", id: 6 },
       { name: "Sim/Não", id: 2 },
       { name: "Sim/Não", id: 3 },
@@ -62,7 +62,7 @@ const fakeData = [
     formDescription: "Descricao test 6",
     addedFields: [
       { name: "Campo de texto", id: 1 },
-      { name: "Campo de texto", id: 4 },
+      { name: "Campo de texto", id: 5 },
       { name: "Campo de texto", id: 6 },
       { name: "Sim/Não", id: 2 },
       { name: "Sim/Não", id: 3 },
@@ -75,7 +75,7 @@ const fakeData = [
     formDescription: "Descricao test 3",
     addedFields: [
       { name: "Campo de texto", id: 1 },
-      { name: "Campo de texto", id: 4 },
+      { name: "Campo de texto", id: 5 },
       { name: "Campo de texto", id: 6 },
       { name: "Sim/Não", id: 2 },
       { name: "Sim/Não", id: 3 },
