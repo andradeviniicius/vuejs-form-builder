@@ -2,9 +2,7 @@
     <v-card>
         <v-layout>
             <v-navigation-drawer v-model="isDrawerOpen" :permanent="mdAndUp">
-                <v-list-item title="Available elements"></v-list-item>
-
-                <v-divider></v-divider>
+                <v-list-item title="Componentes disponíveis"></v-list-item>
 
                 <v-list density="compact" nav>
                     <draggable class="dragArea list-group flexSpacing" :list="availableElements"
@@ -43,7 +41,7 @@
                                 <v-btn color="deep-purple-accent-5" variant="text" @click="dialog = false">
                                     Recusar
                                 </v-btn>
-                                <v-btn color="deep-purple-accent-3" variant="text" @click="dialog = false">
+                                <v-btn color="deep-purple-accent-3" variant="text" @click="handleSaveForm">
                                     Aceitar
                                 </v-btn>
                             </v-card-actions>
@@ -76,7 +74,14 @@ export default {
         const { isEditingMode } = storeToRefs(toggleEditModeStore)
 
         const { mdAndUp } = useDisplay()
-        return { isDrawerOpen, mdAndUp, availableElements, draggableStore, isEditingMode }
+
+        return {
+            isDrawerOpen,
+            mdAndUp,
+            availableElements,
+            draggableStore,
+            isEditingMode
+        }
     },
     components: {
         FormEditor,
@@ -93,6 +98,13 @@ export default {
                     break;
             }
         },
+        handleSaveForm() {
+            const store = useRegisteredForms();
+
+            store.saveForm('id', 'n sei oq', 'n')
+
+            this.dialog = false
+        }
     },
     computed: {
         id() {

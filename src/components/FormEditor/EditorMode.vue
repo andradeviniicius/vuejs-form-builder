@@ -11,8 +11,8 @@
                 <v-btn size="small" variant="flat" :icon="isDescriptionEditing ? 'mdi-check' : 'mdi-pencil'"
                     @click="toggleDescriptionEditMode"></v-btn>
             </div>
-            <draggable class="dragArea list-group formEditContainer" :list="selectedForm.addedFields" group="people"
-                @change="draggableStore.log" item-key="id">
+            <draggable class="dragArea list-group formEditContainer" :list="selectedForm.addedFields"
+                v-model="selectedForm.addedFields" group="people" @change="draggableStore.log" item-key="id">
                 <template #item="{ element }">
                     <div class="list-group-item">
                         <v-btn>

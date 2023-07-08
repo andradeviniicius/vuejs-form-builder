@@ -1,6 +1,9 @@
 type FormFields = {
-  name: string;
-  id: number;
+  id: string;
+  name: {
+    name: string;
+    id: number;
+  };
 };
 
 export type FormItem = {

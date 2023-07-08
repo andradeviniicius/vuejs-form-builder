@@ -2,7 +2,6 @@
 import { defineStore } from "pinia";
 import { generateUniqueID } from "../utils";
 import { FormState, FormItem } from "./types";
-import fakeData from "../assets/fakeData";
 
 export const useDrawerFormEditor = defineStore("drawerStore", {
   state: () => {
@@ -41,7 +40,7 @@ export const useDraggableStore = defineStore("draggableStore", {
       };
     },
     log() {
-      console.log(this.addedElements);
+      // console.log(this.addedElements);
     },
   },
 });
@@ -49,7 +48,7 @@ export const useDraggableStore = defineStore("draggableStore", {
 export const useRegisteredForms = defineStore("registeredForms", {
   state: (): FormState => {
     return {
-      registeredForms: [...fakeData],
+      registeredForms: [],
       filteredForms: [],
       query: "",
     };
@@ -76,6 +75,21 @@ export const useRegisteredForms = defineStore("registeredForms", {
     setQueryValue(value: string) {
       this.query = value;
       this.setFilteredForms(this.query);
+    },
+    saveForm(desiredId, propertyToUpdate, newPropertyValue) {
+      // const desiredId = 2;
+      // const propertyToUpdate = "formTitle";
+      // const newPropertyValue = "New Form Title";
+
+      // const itemToUpdate = this.registeredForms.find(
+      //   (item) => item.id === desiredId
+      // );
+
+      // if (itemToUpdate) {
+      //   itemToUpdate[propertyToUpdate] = newPropertyValue;
+      // }
+
+      console.log(desiredId, propertyToUpdate, newPropertyValue);
     },
   },
 });
