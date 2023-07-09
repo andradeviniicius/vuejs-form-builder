@@ -8,8 +8,8 @@
 <style></style>
 
 <script lang="ts">
-import AppBarHomePage from '../../components/AppBarHomePage.vue'
-import AppBarEditorMode from '../../components/AppBarEditorMode.vue'
+import AppBarHomePage from '../../components/Header/AppBarHomePage.vue'
+import AppBarEditorMode from '../../components/Header/AppBarEditorMode.vue'
 
 export default {
   components: {
