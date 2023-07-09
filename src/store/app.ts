@@ -76,7 +76,7 @@ export const useRegisteredForms = defineStore("registeredForms", {
       this.query = value;
       this.setFilteredForms(this.query);
     },
-    saveForm(desiredId, propertyToUpdate, newPropertyValue) {
+    saveForm(desiredId: any, propertyToUpdate: any, newPropertyValue: any) {
       // const desiredId = 2;
       // const propertyToUpdate = "formTitle";
       // const newPropertyValue = "New Form Title";
