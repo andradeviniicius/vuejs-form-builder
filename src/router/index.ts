@@ -1,10 +1,16 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
 
+function getFormDataFromLocalStorage() {
+  const formData = window.localStorage.getItem("registeredForms");
+  return formData ? JSON.parse(formData) : [];
+}
+
 const routes = [
   {
     path: "/",
     component: () => import("@/layouts/default/Default.vue"),
+    meta: { transition: "fade" },
     children: [
       {
         path: "",
@@ -20,6 +26,18 @@ const routes = [
   {
     path: "/forms/:id",
     component: () => import("@/layouts/default/Default.vue"),
+    meta: { transition: "slide-right" },
+
+    beforeEnter: async (to: any, from: any, next: any) => {
+      const id = Number(to.params.id);
+      const formData = getFormDataFromLocalStorage();
+
+      if (formData[id]) {
+        next();
+      } else {
+        next("/404");
+      }
+    },
     children: [
       {
         path: "",
@@ -28,6 +46,14 @@ const routes = [
           import(/* webpackChunkName: "home" */ "@/views/EditFormPage.vue"),
       },
     ],
+  },
+  {
+    path: "/404",
+    component: () => import("@/views/404Page.vue"),
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect: "/404",
   },
 ];
 
