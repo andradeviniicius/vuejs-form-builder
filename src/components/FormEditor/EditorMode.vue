@@ -2,7 +2,13 @@
   <v-row fill-height>
     <v-col class="form pa-8">
       <div class="ma-5 d-flex flex-row align-center">
-        <h3 class="mr-3">{{ selectedForm.formTitle }}</h3>
+        <h3
+          @input="titleChanged"
+          v-bind:contenteditable="isTitleEditing"
+          class="mr-3"
+        >
+          {{ selectedForm.formTitle }}
+        </h3>
         <v-btn
           size="small"
           variant="flat"
@@ -11,7 +17,12 @@
         ></v-btn>
       </div>
       <div class="ma-5 d-flex flex-row align-center">
-        <h3 class="mr-3">{{ selectedForm.formDescription }}</h3>
+        <h3
+          class="mr-3"
+          v-bind:contenteditable="isDescriptionEditing"
+        >
+          {{ selectedForm.formDescription }}
+        </h3>
         <v-btn
           size="small"
           variant="flat"
@@ -29,7 +40,7 @@
         <template #item="{ element }">
           <div class="list-group-item">
             <v-btn>
-              {{ element.name }}
+              {{ element.name.name }}
             </v-btn>
           </div>
         </template>
@@ -52,6 +63,7 @@ export default defineComponent({
   },
   setup() {
     const draggableStore = useDraggableStore();
+    console.log(draggableStore.addedElements);
 
     return {
       availableElements: draggableStore.availableElements,
@@ -80,6 +92,12 @@ export default defineComponent({
       }
 
       this.isTitleEditing = !this.isTitleEditing;
+    },
+    titleChanged(e: any) {
+      console.log("123", e.target.innerHTML);
+    },
+    descriptionChanged(e: any) {
+      console.log("123", e.target.innerHTML);
     },
     toggleDescriptionEditMode() {
       if (this.isDescriptionEditing) {
