@@ -36,7 +36,8 @@
       <v-main style="height: 93vh">
         <form-editor />
         <v-row
-          class="justify-end"
+          justify="space-between"
+          align="center"
           :style="{ margin: '5%' }"
         >
           <v-dialog
@@ -51,6 +52,13 @@
               >
                 Salvar
               </v-btn>
+              <v-card-text
+                v-if="hasUnsavedChanges"
+                color="deep-purple-accent-3"
+                class="italic-opacity"
+              >
+                Você alterou o formulário, salve o para não perder nada!
+              </v-card-text>
             </template>
 
             <v-card>
@@ -190,5 +198,9 @@ export default {
   display: flex;
   flex-direction: column;
   gap: 15px;
+}
+.italic-opacity {
+  font-style: italic;
+  opacity: 0.65;
 }
 </style>

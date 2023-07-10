@@ -78,8 +78,8 @@ export default {
       this.$router.push("/forms/" + id);
 
       const newForm: FormItem = {
-        formTitle: `title form ${id}`,
-        formDescription: `description form ${id}`,
+        formTitle: `Novo formulário ${id}`,
+        formDescription: `Descrição do formulário ${id}`,
         addedFields: [],
         id: id,
       };
