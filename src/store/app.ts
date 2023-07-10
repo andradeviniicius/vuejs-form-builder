@@ -45,55 +45,6 @@ export const useDraggableStore = defineStore("draggableStore", {
   },
 });
 
-export const useRegisteredForms = defineStore("registeredForms", {
-  state: (): FormState => {
-    return {
-      registeredForms: [],
-      filteredForms: [],
-      query: "",
-    };
-  },
-  actions: {
-    addNewForm({ formTitle, formDescription, addedFields, id }: FormItem) {
-      this.registeredForms.push({
-        id: id,
-        formTitle,
-        formDescription,
-        addedFields,
-      });
-    },
-    setFilteredForms(searchTerm: string) {
-      this.filteredForms = this.registeredForms.filter((form) => {
-        const formTitle = form.formTitle.toLowerCase();
-        const formDescription = form.formDescription.toLowerCase();
-        return (
-          formTitle.includes(searchTerm.toLowerCase()) ||
-          formDescription.includes(searchTerm.toLowerCase())
-        );
-      });
-    },
-    setQueryValue(value: string) {
-      this.query = value;
-      this.setFilteredForms(this.query);
-    },
-    saveForm(desiredId: any, propertyToUpdate: any, newPropertyValue: any) {
-      // const desiredId = 2;
-      // const propertyToUpdate = "formTitle";
-      // const newPropertyValue = "New Form Title";
-
-      // const itemToUpdate = this.registeredForms.find(
-      //   (item) => item.id === desiredId
-      // );
-
-      // if (itemToUpdate) {
-      //   itemToUpdate[propertyToUpdate] = newPropertyValue;
-      // }
-
-      console.log(desiredId, propertyToUpdate, newPropertyValue);
-    },
-  },
-});
-
 const STORE_NAME = "mainDatabase";
 
 const getRegisteredForms = () => {
