@@ -7,7 +7,7 @@
       <v-col cols="auto">
         <h1
           class="text-h3"
-          color="deep-purple"
+          color="deep-purple-accent-3"
         >
           Whoops, 404
         </h1>

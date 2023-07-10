@@ -17,4 +17,6 @@ export type FormState = {
   registeredForms: FormItem[];
   filteredForms: FormItem[];
   query: string;
+  hasUnsavedChanges: boolean;
+  dialogConfirmChanges: boolean;
 };

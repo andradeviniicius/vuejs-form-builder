@@ -32,28 +32,69 @@
       </div>
       <draggable
         class="dragArea list-group formEditContainer"
-        v-model="selectedForm.addedFields"
+        v-model="selectedForm!.addedFields"
         group="people"
-        @change="draggableStore.log"
         item-key="id"
       >
-        <template #item="{ element }">
+        <template #item="{ element, index }">
           <div class="list-group-item">
-            <v-btn>
-              {{ element.name.name }}
-            </v-btn>
+            <v-btn-group variant="outlined">
+              <v-btn>
+                {{ element.name.name }}
+              </v-btn>
+              <v-btn
+                size="small"
+                variant="tonal"
+                icon="mdi-delete"
+                color="deep-purple-accent-3"
+                @click="deleteSelectedField(index)"
+              >
+              </v-btn>
+            </v-btn-group>
           </div>
         </template>
       </draggable>
     </v-col>
   </v-row>
+
+  <v-dialog
+    v-model="dialogConfirmChanges"
+    width="auto"
+  >
+    <v-card>
+      <v-card-title class="text-h5">
+        Você está saindo sem salvar as alterações!
+      </v-card-title>
+      <v-card-text> Deseja voltar para salvar seu progresso? </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn
+          color="deep-purple-accent-5"
+          variant="text"
+          @click="handleRejectChanges"
+        >
+          Não, pode descartar tudo!
+        </v-btn>
+        <v-btn
+          color="deep-purple-accent-3"
+          variant="text"
+          @click="handleSaveChanges"
+        >
+          Sim, preciso salvar!
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { useDraggableStore, useLocalStorage } from "../../store/app";
-import { defineComponent } from "vue";
+import { useLocalStorage } from "../../store/app";
+import { defineComponent, watch } from "vue";
+import { shallowEqual } from "@/utils/index";
+import { storeToRefs } from "pinia";
+import { useRoute } from "vue-router";
 
 export default defineComponent({
   name: "EditorMode",
@@ -61,30 +102,57 @@ export default defineComponent({
   components: {
     draggable,
   },
-  setup() {
-    const draggableStore = useDraggableStore();
-    console.log(draggableStore.addedElements);
-
-    return {
-      availableElements: draggableStore.availableElements,
-      addedElements: draggableStore.addedElements,
-      draggableStore,
-    };
+  watch: {
+    selectedForm(updatedValue) {
+    },
   },
-  data() {
+
+  setup() {
+    const route = useRoute();
     const store = useLocalStorage();
+    const { dialogConfirmChanges, hasUnsavedChanges } = storeToRefs(store);
 
-    const checkSelectedForm = store.registeredForms.filter((el: any) => {
-      return el.id.toString() === this.$route.params.id;
+    let selectedForm = store.registeredForms.find(
+      (obj: any) => obj.id == route.params.id
+    );
+    const getformFromLocal = () => {
+      return JSON.parse(localStorage.getItem("mainDatabase")!).find(
+        (obj: any) => obj.id == route.params.id
+      );
+    };
+    watch(selectedForm!, (newValue) => {
+      let isEditedFormAndStoredFormEqual = shallowEqual(
+        getformFromLocal(),
+        selectedForm
+      );
+
+      // console.log("teo local", this.selectedformFromLocal);
+      // console.log("teo seectet", this.selectedForm);
+
+      // console.log("equal", isEditedFormAndStoredFormEqual);
+
+      if (!isEditedFormAndStoredFormEqual) {
+        store.hasUnsavedChanges = true;
+      } else {
+        store.hasUnsavedChanges = false;
+      }
     });
-
     return {
+      isFormModified: false,
+      hasUnsavedChanges: hasUnsavedChanges,
+      dialogConfirmChanges: dialogConfirmChanges,
+
       isTitleEditing: false,
       isDescriptionEditing: false,
-      selectedForm: checkSelectedForm[0],
+
+      selectedForm: selectedForm!,
+      selectedformFromLocal: getformFromLocal(),
+      formFromLocal: getformFromLocal(),
+
+      formsStore: store,
     };
   },
-  beforeUnmount() {},
+  data() {},
   methods: {
     toggleTitleEditMode() {
       if (this.isTitleEditing) {
@@ -94,10 +162,10 @@ export default defineComponent({
       this.isTitleEditing = !this.isTitleEditing;
     },
     titleChanged(e: any) {
-      console.log("123", e.target.innerHTML);
+      console.log("123", e.target.innerText);
     },
     descriptionChanged(e: any) {
-      console.log("123", e.target.innerHTML);
+      console.log("123", e.target.innerText);
     },
     toggleDescriptionEditMode() {
       if (this.isDescriptionEditing) {
@@ -105,6 +173,20 @@ export default defineComponent({
       }
 
       this.isDescriptionEditing = !this.isDescriptionEditing;
+    },
+    deleteSelectedField(index: number) {
+      this.$forceUpdate;
+      this.selectedForm.addedFields.splice(index, 1);
+    },
+    handleRejectChanges() {
+      this.selectedForm.addedFields = this.selectedformFromLocal.addedFields;
+
+      this.hasUnsavedChanges = false;
+      this.dialogConfirmChanges = false;
+      this.$router.push("/");
+    },
+    handleSaveChanges() {
+      this.dialogConfirmChanges = false;
     },
   },
 });

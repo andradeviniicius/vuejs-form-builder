@@ -39,8 +39,8 @@ export const useDraggableStore = defineStore("draggableStore", {
         name: name,
       };
     },
-    log() {
-      // console.log(this.addedElements);
+    log(e) {
+      console.log(e);
     },
   },
 });
@@ -54,10 +54,12 @@ const getRegisteredForms = () => {
 };
 
 export const useLocalStorage = defineStore(STORE_NAME, {
-  state: () => ({
+  state: (): FormState => ({
     registeredForms: getRegisteredForms(),
     filteredForms: [],
     query: "",
+    hasUnsavedChanges: false,
+    dialogConfirmChanges: false,
   }),
   actions: {
     updateRegisteredForm(newForm) {
@@ -71,6 +73,17 @@ export const useLocalStorage = defineStore(STORE_NAME, {
       });
 
       this.registeredForms.splice(itemToDelete, 1);
+      localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
+    },
+    editExistentForm(editedFormId, editedFormData) {
+      const objectIndex = this.registeredForms.findIndex(
+        (obj) => obj.id === editedFormId
+      );
+
+      if (objectIndex !== -1) {
+        console.log(editedFormData);
+        this.registeredForms[objectIndex] = editedFormData;
+      }
       localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
     },
     setFilteredForms(searchTerm: string) {
@@ -87,6 +100,5 @@ export const useLocalStorage = defineStore(STORE_NAME, {
       this.query = value;
       this.setFilteredForms(this.query);
     },
-    persist: true,
   },
 });

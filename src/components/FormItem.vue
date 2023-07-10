@@ -46,8 +46,6 @@
       </v-dialog>
     </v-card-actions>
   </v-card>
-
-  {{ data }}
 </template>
 
 <script lang="ts">

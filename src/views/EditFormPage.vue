@@ -119,6 +119,25 @@ export default {
       isEditingMode,
     };
   },
+  mounted() {},
+  beforeRouteLeave() {
+    const store = useLocalStorage();
+
+    if (store.hasUnsavedChanges) {
+      store.dialogConfirmChanges = true;
+      return false;
+    }
+    return true;
+  },
+  beforeUpdate() {
+    const store = useLocalStorage();
+
+    if (store.hasUnsavedChanges) {
+      store.dialogConfirmChanges = true;
+      return false;
+    }
+    return true;
+  },
   components: {
     FormEditor,
     draggable,
@@ -135,7 +154,12 @@ export default {
       }
     },
     handleSaveForm() {
+      console.log("this.selected", this.selectedForm);
+
+      this.formStore.editExistentForm(this.selectedForm.id, this.selectedForm);
       this.dialog = false;
+      this.hasUnsavedChanges = false;
+      this.dialogConfirmChanges = false;
     },
   },
   computed: {
@@ -144,18 +168,18 @@ export default {
     },
   },
   data() {
-    return {
-      dialog: false,
-    };
-  },
-  beforeMount() {
     const store = useLocalStorage();
+    const { dialogConfirmChanges, hasUnsavedChanges } = storeToRefs(store);
     const check = store.registeredForms.filter((el: any) => {
       return el.id.toString() === this.$route.params.id;
     });
 
     return {
       selectedForm: check[0],
+      formStore: store,
+      dialog: false,
+      hasUnsavedChanges: hasUnsavedChanges,
+      dialogConfirmChanges: dialogConfirmChanges,
     };
   },
 };
