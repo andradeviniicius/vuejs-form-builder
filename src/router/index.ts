@@ -27,17 +27,6 @@ const routes = [
     path: "/forms/:id",
     component: () => import("@/layouts/default/Default.vue"),
     meta: { transition: "slide-right" },
-
-    beforeEnter: async (to: any, from: any, next: any) => {
-      const id = Number(to.params.id);
-      const formData = getFormDataFromLocalStorage();
-
-      if (formData[id]) {
-        next();
-      } else {
-        next("/404");
-      }
-    },
     children: [
       {
         path: "",

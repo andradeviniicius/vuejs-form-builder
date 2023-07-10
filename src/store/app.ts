@@ -54,9 +54,9 @@ export const useRegisteredForms = defineStore("registeredForms", {
     };
   },
   actions: {
-    addNewForm({ formTitle, formDescription, addedFields }: FormItem) {
+    addNewForm({ formTitle, formDescription, addedFields, id }: FormItem) {
       this.registeredForms.push({
-        id: Math.random(),
+        id: id,
         formTitle,
         formDescription,
         addedFields,

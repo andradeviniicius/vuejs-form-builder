@@ -47,6 +47,9 @@
 import { useDisplay } from "vuetify";
 import { useRegisteredForms } from "@/store/app";
 import { storeToRefs } from "pinia";
+import store from "@/store";
+import { FormItem, FormState } from "@/store/types";
+import { findNextAvailableId } from "@/utils";
 export default {
   name: "AppBarHomePage",
   setup() {
@@ -62,6 +65,7 @@ export default {
       query,
       setQueryValue: formsStore.setQueryValue,
       registeredForms: formsStore.registeredForms,
+      addNewForm: formsStore.addNewForm,
     };
   },
   data: () => ({}),
@@ -70,15 +74,18 @@ export default {
       this.setQueryValue(e.target.value);
     },
     createNewForm() {
-      let id = 0;
-      for (let i = 0; i < this.registeredForms.length; i++) {
-        if (this.registeredForms[i].id >= id) {
-          id = this.registeredForms[i].id + 1;
-        }
-      }
+      const id = findNextAvailableId(this.registeredForms);
 
       this.$router.push("/forms/" + id);
 
+      const newForm: FormItem = {
+        formTitle: `title form ${id}`,
+        formDescription: `description form ${id}`,
+        addedFields: [],
+        id: id,
+      };
+
+      this.addNewForm(newForm);
 
       //   this.registeredForms;
     },
