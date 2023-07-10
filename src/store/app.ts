@@ -114,6 +114,14 @@ export const useLocalStorage = defineStore(STORE_NAME, {
 
       localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
     },
+    deleteRegisteredForm(formId) {
+      const itemToDelete = this.registeredForms.findIndex((i) => {
+        return i.id === formId;
+      });
+
+      this.registeredForms.splice(itemToDelete, 1);
+      localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
+    },
     setFilteredForms(searchTerm: string) {
       this.filteredForms = this.registeredForms.filter((form) => {
         const formTitle = form.formTitle.toLowerCase();
