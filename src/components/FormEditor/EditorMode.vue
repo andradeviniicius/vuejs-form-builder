@@ -61,7 +61,7 @@ export default defineComponent({
   },
   data() {
     const store = useRegisteredForms();
-    
+
     const checkSelectedForm = store.registeredForms.filter((el) => {
       return el.id.toString() === this.$route.params.id;
     });
@@ -72,6 +72,7 @@ export default defineComponent({
       selectedForm: checkSelectedForm[0],
     };
   },
+  beforeUnmount() {},
   methods: {
     toggleTitleEditMode() {
       if (this.isTitleEditing) {

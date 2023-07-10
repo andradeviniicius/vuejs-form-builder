@@ -1,10 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-
-function getFormDataFromLocalStorage() {
-  const formData = window.localStorage.getItem("registeredForms");
-  return formData ? JSON.parse(formData) : [];
-}
+import { useRegisteredForms } from "@/store/app";
 
 const routes = [
   {
@@ -41,7 +37,7 @@ const routes = [
     component: () => import("@/views/404Page.vue"),
   },
   {
-    path: "/:pathMatch(.*)*",
+    path: "/forms/:pathMatch(.*)*",
     redirect: "/404",
   },
 ];
@@ -50,5 +46,12 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
 });
+router.beforeEach((to) => {
+  const store = useRegisteredForms();
+  const a = store.registeredForms.filter((el) => {
+    return el.id == to.params.id;
+  });
 
+  if (to.params.id && a.length == 0) return "/404";
+});
 export default router;

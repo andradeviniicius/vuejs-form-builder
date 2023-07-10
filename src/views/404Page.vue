@@ -1,14 +1,27 @@
 <template>
-  <v-btn
-    @click="redirectToHomepage"
-    class="ma-2"
-  >
-    <v-icon
-      start
-      icon="mdi-arrow-left"
-    ></v-icon>
-    <p>Back</p>
-  </v-btn>
+  <v-container>
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col cols="auto">
+        <h1
+          class="text-h3"
+          color="deep-purple"
+        >
+          Whoops, 404
+        </h1>
+        <p>A página que você está procurando não existe</p>
+        <v-btn
+          color="deep-purple"
+          variant="outlined"
+          @click="redirectToHomepage"
+        >
+          Me tire daqui D:
+        </v-btn>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
