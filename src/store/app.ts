@@ -93,3 +93,41 @@ export const useRegisteredForms = defineStore("registeredForms", {
     },
   },
 });
+
+const STORE_NAME = "mainDatabase";
+
+const getRegisteredForms = () => {
+  const registeredForms = localStorage.getItem(STORE_NAME);
+
+  return registeredForms ? JSON.parse(registeredForms) : [];
+};
+
+export const useLocalStorage = defineStore(STORE_NAME, {
+  state: () => ({
+    registeredForms: getRegisteredForms(),
+    filteredForms: [],
+    query: "",
+  }),
+  actions: {
+    updateRegisteredForm(newForm) {
+      this.registeredForms.push(newForm);
+
+      localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
+    },
+    setFilteredForms(searchTerm: string) {
+      this.filteredForms = this.registeredForms.filter((form) => {
+        const formTitle = form.formTitle.toLowerCase();
+        const formDescription = form.formDescription.toLowerCase();
+        return (
+          formTitle.includes(searchTerm.toLowerCase()) ||
+          formDescription.includes(searchTerm.toLowerCase())
+        );
+      });
+    },
+    setQueryValue(value: string) {
+      this.query = value;
+      this.setFilteredForms(this.query);
+    },
+    persist: true,
+  },
+});

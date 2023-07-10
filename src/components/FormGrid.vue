@@ -81,7 +81,7 @@
 <script lang="ts">
 import { storeToRefs } from "pinia";
 import FormItem from "./FormItem.vue";
-import { useRegisteredForms } from "@/store/app";
+import { useLocalStorage } from "@/store/app";
 import { useDisplay } from "vuetify/lib/framework.mjs";
 
 export default {
@@ -90,7 +90,7 @@ export default {
     FormItem,
   },
   beforeMount() {
-    const formsStore = useRegisteredForms();
+    const formsStore = useLocalStorage();
     formsStore.filteredForms = formsStore.registeredForms;
   },
   data() {
@@ -108,9 +108,10 @@ export default {
   },
   setup() {
     const { mdAndUp } = useDisplay();
-    const store = useRegisteredForms();
-    const { filteredForms } = storeToRefs(store);
+    const registeredFormsStore = useLocalStorage();
+    const { filteredForms } = storeToRefs(registeredFormsStore);
     let isFirstVisit;
+    const { registeredForms } = storeToRefs(registeredFormsStore);
 
     if (!window.localStorage.getItem("FirstVisit")) {
       isFirstVisit = true;
@@ -119,10 +120,12 @@ export default {
     }
 
     return {
-      formItem: store.registeredForms,
+      formItem: registeredFormsStore.registeredForms,
       filteredForms,
       mdAndUp,
       isFirstVisit,
+      registeredForms,
+      registeredFormsStore,
     };
   },
 };

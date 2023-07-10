@@ -45,16 +45,15 @@
 
 <script lang="ts">
 import { useDisplay } from "vuetify";
-import { useRegisteredForms } from "@/store/app";
+import { useLocalStorage } from "@/store/app";
 import { storeToRefs } from "pinia";
-import store from "@/store";
-import { FormItem, FormState } from "@/store/types";
+import { FormItem } from "@/store/types";
 import { findNextAvailableId } from "@/utils";
 export default {
   name: "AppBarHomePage",
   setup() {
     const { mobile, mdAndUp, mdAndDown } = useDisplay();
-    const formsStore = useRegisteredForms();
+    const formsStore = useLocalStorage();
     const { query } = storeToRefs(formsStore);
 
     return {
@@ -65,7 +64,7 @@ export default {
       query,
       setQueryValue: formsStore.setQueryValue,
       registeredForms: formsStore.registeredForms,
-      addNewForm: formsStore.addNewForm,
+      addNewForm: formsStore.updateRegisteredForm,
     };
   },
   data: () => ({}),

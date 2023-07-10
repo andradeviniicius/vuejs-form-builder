@@ -52,7 +52,7 @@
 <script lang="ts">
 import draggable from "vuedraggable";
 
-import { useDraggableStore, useRegisteredForms } from "../../store/app";
+import { useDraggableStore, useLocalStorage } from "../../store/app";
 import { defineComponent } from "vue";
 
 export default defineComponent({
@@ -72,9 +72,9 @@ export default defineComponent({
     };
   },
   data() {
-    const store = useRegisteredForms();
+    const store = useLocalStorage();
 
-    const checkSelectedForm = store.registeredForms.filter((el) => {
+    const checkSelectedForm = store.registeredForms.filter((el: any) => {
       return el.id.toString() === this.$route.params.id;
     });
 

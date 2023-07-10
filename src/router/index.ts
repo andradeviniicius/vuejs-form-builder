@@ -1,6 +1,6 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-import { useRegisteredForms } from "@/store/app";
+import { useLocalStorage } from "@/store/app";
 
 const routes = [
   {
@@ -47,7 +47,7 @@ const router = createRouter({
   routes,
 });
 router.beforeEach((to) => {
-  const store = useRegisteredForms();
+  const store = useLocalStorage();
   const a = store.registeredForms.filter((el) => {
     return el.id == to.params.id;
   });

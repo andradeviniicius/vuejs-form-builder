@@ -15,9 +15,12 @@ import { registerPlugins } from "@/plugins";
 
 //Store
 import { createPinia } from "pinia";
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 const app = createApp(App);
-app.use(createPinia());
+const pinia = createPinia();
+app.use(pinia);
+pinia.use(piniaPluginPersistedstate);
 
 registerPlugins(app);
 
