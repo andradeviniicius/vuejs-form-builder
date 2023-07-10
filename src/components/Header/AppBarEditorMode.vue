@@ -5,7 +5,7 @@
                 <v-icon start icon="mdi-arrow-left"></v-icon>
                 <p>
 
-                    Back
+                    Voltar
                 </p>
             </v-btn>
 
