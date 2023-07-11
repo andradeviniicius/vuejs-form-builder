@@ -1,6 +1,6 @@
 <template>
   <v-row fill-height>
-    <v-col class="form pa-3 d-flex">
+    <v-col class="form pa-6 d-flex">
       <v-card
         variant="flat"
         :title="selectedForm?.formTitle"

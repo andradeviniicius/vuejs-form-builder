@@ -1,6 +1,6 @@
 <template>
   <v-card>
-    <v-layout>
+    <v-layout full-height>
       <v-btn
         v-if="mdAndUp && !isDrawerOpen"
         @click="isDrawerOpen = true"

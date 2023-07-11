@@ -17,8 +17,8 @@
         <v-text-field
           v-model="query"
           @input="updateQueryValue"
-          append-icon="mdi-magnify"
-          label="Search"
+          :append-icon="mdAndUp ? 'mdi-magnify' : ''"
+          label="Filtrar"
           single-line
           hide-details
         >

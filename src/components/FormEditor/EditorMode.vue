@@ -1,6 +1,6 @@
 <template>
   <v-row>
-    <v-col class="form pa-8">
+    <v-col class="form pa-5">
       <div class="ma-5 d-flex flex-row align-center">
         <h3
           @input="titleChanged"
@@ -64,26 +64,33 @@
               label="Titulo do item (Clique para editar)"
               @input="handleItemLabelChange($event.target.value, element.id)"
             ></v-text-field>
-            <v-btn-group variant="outlined">
+            <v-row justify="space-between">
+              <v-btn-group variant="outlined">
+                <v-btn
+                  :ripple="false"
+                  :prepend-icon="
+                    element.name.name === 'Campo de texto'
+                      ? 'mdi-format-text'
+                      : 'mdi-check'
+                  "
+                >
+                  {{ mdAndUp ? element.name.name : '' }}
+                </v-btn>
+                <v-btn
+                  size="small"
+                  variant="tonal"
+                  icon="mdi-delete"
+                  color="deep-purple-accent-3"
+                  @click="deleteSelectedField(index)"
+                >
+                </v-btn>
+              </v-btn-group>
               <v-btn
-                :ripple="false"
-                :prepend-icon="
-                  element.name.name === 'Campo de texto'
-                    ? 'mdi-format-text'
-                    : 'mdi-check'
-                "
-              >
-                {{ element.name.name }}
-              </v-btn>
-              <v-btn
-                size="small"
-                variant="tonal"
-                icon="mdi-delete"
-                color="deep-purple-accent-3"
-                @click="deleteSelectedField(index)"
-              >
-              </v-btn>
-            </v-btn-group>
+                icon="mdi-drag-variant"
+                variant="elevated"
+                size="large"
+              ></v-btn>
+            </v-row>
           </v-card>
         </template>
       </draggable>
@@ -215,14 +222,13 @@ export default defineComponent({
     },
     handleItemLabelChange(event: any, id: string) {
       console.log(id);
-      
+
       let selectedItem = this.selectedForm.addedFields.findIndex(
         (el) => el.id == id
       );
 
       console.log(selectedItem);
-      console.log( this.selectedForm.addedFields[selectedItem]);
-      
+      console.log(this.selectedForm.addedFields[selectedItem]);
 
       this.selectedForm.addedFields[selectedItem].name.label = event;
     },
