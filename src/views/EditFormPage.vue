@@ -56,6 +56,7 @@
                 color="deep-purple-accent-3"
                 v-bind="props"
                 :disabled="hasUnsavedChanges ? false : true"
+                id="saveFormButton"
               >
                 Salvar
               </v-btn>

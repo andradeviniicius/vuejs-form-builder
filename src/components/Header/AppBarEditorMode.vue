@@ -32,8 +32,8 @@
             color="deep-purple-accent-4"
             align-tabs="center"
           >
-            <v-tab :value="1">Editar</v-tab>
-            <v-tab :value="2">Visualizar</v-tab>
+            <v-tab id="editorModeButton" :value="1">Editar</v-tab>
+            <v-tab id="previewModeButton" :value="2">Visualizar</v-tab>
           </v-tabs>
 
           <v-tabs

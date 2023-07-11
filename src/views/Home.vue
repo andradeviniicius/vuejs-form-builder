@@ -3,5 +3,5 @@
 </template>
 
 <script lang="ts" setup>
-import FormGrid from '@/components/FormGrid.vue'
+import FormGrid from "@/components/FormGrid.vue";
 </script>

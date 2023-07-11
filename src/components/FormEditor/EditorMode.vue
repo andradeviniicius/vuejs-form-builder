@@ -12,6 +12,7 @@
         </h3>
         <v-btn
           size="small"
+          id="editTitleButton"
           variant="flat"
           :icon="isTitleEditing ? 'mdi-check' : 'mdi-pencil'"
           @click="toggleTitleEditMode"
@@ -29,6 +30,7 @@
         <v-btn
           size="small"
           variant="flat"
+          id="editDescriptionButton"
           :icon="isDescriptionEditing ? 'mdi-check' : 'mdi-pencil'"
           @click="toggleDescriptionEditMode"
         ></v-btn>
@@ -94,11 +96,6 @@
           </v-card>
         </template>
       </draggable>
-    </v-col>
-    <v-col>
-      <pre>
-        {{selectedForm}}
-      </pre>
     </v-col>
   </v-row>
   <v-dialog
@@ -218,7 +215,8 @@ export default defineComponent({
     handleRejectChanges() {
       this.selectedForm.addedFields = this.selectedformFromLocal.addedFields;
       this.selectedForm.formTitle = this.selectedformFromLocal.formTitle;
-      this.selectedForm.formDescription = this.selectedformFromLocal.formDescription;
+      this.selectedForm.formDescription =
+        this.selectedformFromLocal.formDescription;
 
       this.hasUnsavedChanges = false;
       this.dialogConfirmChanges = false;

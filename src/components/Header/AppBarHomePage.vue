@@ -21,6 +21,7 @@
           label="Filtrar"
           single-line
           hide-details
+          id="filterFormsInput"
         >
         </v-text-field>
       </v-col>
@@ -29,6 +30,7 @@
         <v-btn
           v-if="mdAndUp"
           size="large"
+          id="createNewFormButton"
           prepend-icon="mdi-plus"
           @click="createNewForm"
           >Criar novo form</v-btn

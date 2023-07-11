@@ -14,6 +14,7 @@
       </v-row>
 
       <v-dialog
+        id="welcomeDialog"
         persistent
         v-if="isFirstVisit"
         v-model="welcomeDialog"
