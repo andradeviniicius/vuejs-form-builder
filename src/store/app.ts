@@ -24,8 +24,8 @@ export const useDraggableStore = defineStore("draggableStore", {
   state: () => {
     return {
       availableElements: [
-        { label: "", name: "Campo de texto", id: 1 },
-        { label: "", name: "Campo de Sim/Não", id: 2 },
+        { name: "Campo de texto", id: 1 },
+        { name: "Campo de Sim/Não", id: 2 },
       ],
       addedElements: [],
     };

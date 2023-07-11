@@ -95,11 +95,6 @@
         </template>
       </draggable>
     </v-col>
-    <v-col>
-      <pre>
-        {{ selectedForm }}
-      </pre>
-    </v-col>
   </v-row>
   <v-dialog
     v-model="dialogConfirmChanges"
@@ -226,7 +221,6 @@ export default defineComponent({
       this.dialogConfirmChanges = false;
     },
     handleItemLabelChange(event: any, id: number) {
-
       this.selectedForm.addedFields[id].label = event;
     },
   },

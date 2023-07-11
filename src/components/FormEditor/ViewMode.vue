@@ -7,7 +7,10 @@
         :subtitle="selectedForm?.formDescription"
       >
         <v-card-item>
-          <div v-for="items in selectedForm!.addedFields" :key="items.id">
+          <div
+            v-for="items in selectedForm!.addedFields"
+            :key="items.id"
+          >
             <div v-if="items.name.name === `Campo de texto`">
               <label for="1">
                 {{ items.label }}
@@ -32,11 +35,35 @@
           </v-alert>
         </v-card-item>
         <v-card-actions>
-          <v-btn
-            class="me-4"
-            @click="handleSendForm"
-            >Confirmar envio</v-btn
+          <v-dialog
+            v-model="dialog"
+            width="800"
           >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                class="me-4"
+                v-bind="props"
+              >
+                Confirmar Envio
+              </v-btn>
+            </template>
+            <v-card>
+              <v-card-title>
+                <span class="text-h5">Parabéns!!</span>
+              </v-card-title>
+              <v-card-text> Seu formulário foi enviado :) </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="deep-purple-accent-3"
+                  variant="text"
+                  @click="dialog = false"
+                >
+                  Fechar
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
           <v-btn>Cancelar</v-btn>
         </v-card-actions>
       </v-card>
@@ -62,12 +89,10 @@ export default {
       selectedForm: selectedForm,
     };
   },
-  methods: {
-    handleSendForm() {
-      alert(
-        "Respota do seu form: " + JSON.stringify(this.selectedForm, null, 4)
-      );
-    },
+  data() {
+    return {
+      dialog: false,
+    };
   },
 };
 </script>
