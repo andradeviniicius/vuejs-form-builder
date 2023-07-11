@@ -1,12 +1,16 @@
 <template>
   <v-card>
     <v-layout>
+      <v-btn
+        v-if="mdAndUp && !isDrawerOpen"
+        @click="isDrawerOpen = true"
+        icon="mdi-menu-open"
+      >
+      </v-btn>
       <v-navigation-drawer
         v-model="isDrawerOpen"
-        :permanent="mdAndUp"
+        permanent
         :location="mdAndUp ? 'left' : 'bottom'"
-        draggable="false"
-        hide-overlay
       >
         <v-list-item title="Componentes disponíveis"></v-list-item>
 
@@ -19,7 +23,6 @@
             :list="availableElements"
             :group="{ name: 'people', pull: 'clone', put: false }"
             :clone="draggableStore.addFieldToForm"
-            @change="draggableStore.log"
             item-key="id"
           >
             <template #item="{ element }">
@@ -36,7 +39,7 @@
         </v-list>
       </v-navigation-drawer>
 
-      <v-main style="height: 93vh">
+      <v-main>
         <form-editor />
         <v-row
           justify="space-between"
@@ -52,6 +55,7 @@
                 prepend-icon="mdi-content-save-edit-outline"
                 color="deep-purple-accent-3"
                 v-bind="props"
+                :disabled="hasUnsavedChanges ? false : true"
               >
                 Salvar
               </v-btn>
@@ -158,15 +162,13 @@ export default {
       switch (el) {
         case "Campo de texto":
           return "mdi-format-text";
-        case "Sim/Não":
-          return "mdi-checkbox-outline";
+        case "Campo de Sim/Não":
+          return "mdi-check";
         default:
           break;
       }
     },
     handleSaveForm() {
-      console.log("this.selected", this.selectedForm);
-
       this.formStore.editExistentForm(this.selectedForm.id, this.selectedForm);
       this.dialog = false;
       this.hasUnsavedChanges = false;
@@ -204,6 +206,6 @@ export default {
 }
 .italic-opacity {
   font-style: italic;
-  opacity: 0.65;
+  opacity: 0.55;
 }
 </style>

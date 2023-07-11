@@ -24,8 +24,8 @@ export const useDraggableStore = defineStore("draggableStore", {
   state: () => {
     return {
       availableElements: [
-        { name: "Campo de texto", id: 1 },
-        { name: "Sim/Não", id: 2 },
+        { label: "", name: "Campo de texto", id: 1 },
+        { label: "", name: "Campo de Sim/Não", id: 2 },
       ],
       addedElements: [],
     };
@@ -38,9 +38,6 @@ export const useDraggableStore = defineStore("draggableStore", {
         id: uniqueId,
         name: name,
       };
-    },
-    log(e) {
-      console.log(e);
     },
   },
 });
@@ -62,12 +59,12 @@ export const useLocalStorage = defineStore(STORE_NAME, {
     dialogConfirmChanges: false,
   }),
   actions: {
-    updateRegisteredForm(newForm) {
+    updateRegisteredForm(newForm: FormItem) {
       this.registeredForms.push(newForm);
 
       localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
     },
-    deleteRegisteredForm(formId) {
+    deleteRegisteredForm(formId: number) {
       const itemToDelete = this.registeredForms.findIndex((i) => {
         return i.id === formId;
       });
@@ -75,7 +72,7 @@ export const useLocalStorage = defineStore(STORE_NAME, {
       this.registeredForms.splice(itemToDelete, 1);
       localStorage.setItem(STORE_NAME, JSON.stringify(this.registeredForms));
     },
-    editExistentForm(editedFormId, editedFormData) {
+    editExistentForm(editedFormId: number, editedFormData: FormItem) {
       const objectIndex = this.registeredForms.findIndex(
         (obj) => obj.id === editedFormId
       );

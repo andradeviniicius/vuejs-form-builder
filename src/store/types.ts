@@ -1,6 +1,7 @@
 type FormFields = {
   id: string;
   name: {
+    label: string;
     name: string;
     id: number;
   };

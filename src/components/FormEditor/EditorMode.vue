@@ -1,5 +1,5 @@
 <template>
-  <v-row fill-height>
+  <v-row>
     <v-col class="form pa-8">
       <div class="ma-5 d-flex flex-row align-center">
         <h3
@@ -19,8 +19,9 @@
       </div>
       <div class="ma-5 d-flex flex-row align-center">
         <h3
-          class="mr-3 pa-1"
+          @input="descriptionChanged"
           v-bind:contenteditable="isDescriptionEditing"
+          class="mr-3 pa-1"
           :class="isDescriptionEditing ? 'isEditingContent' : ''"
         >
           {{ selectedForm.formDescription }}
@@ -32,16 +33,47 @@
           @click="toggleDescriptionEditMode"
         ></v-btn>
       </div>
+
+      <div class="ma-5 d-flex flex-column align-start italic-opacity">
+        <div>
+          <v-icon
+            size="small"
+            class="mr-1"
+            icon="mdi-drag-variant"
+          ></v-icon>
+
+          Arraste e solte os componentes abaixo dessa linha
+        </div>
+
+        <v-progress-linear
+          color="grey"
+          class=""
+          model-value="100"
+        ></v-progress-linear>
+      </div>
       <draggable
-        class="dragArea list-group formEditContainer"
+        class="dragArea list-group formEditContainer pa-5"
         v-model="selectedForm!.addedFields"
         group="people"
         item-key="id"
       >
         <template #item="{ element, index }">
-          <div class="list-group-item">
+          <v-card class="list-group-item pa-5">
+            <v-text-field
+              variant="underlined"
+              label="Titulo do item (Clique para editar)"
+              @input="handleItemLabelChange($event.target.value, element.id)"
+              :model-value="element.name.label"
+            ></v-text-field>
             <v-btn-group variant="outlined">
-              <v-btn>
+              <v-btn
+                :ripple="false"
+                :prepend-icon="
+                  element.name.name === 'Campo de texto'
+                    ? 'mdi-format-text'
+                    : 'mdi-check'
+                "
+              >
                 {{ element.name.name }}
               </v-btn>
               <v-btn
@@ -53,12 +85,11 @@
               >
               </v-btn>
             </v-btn-group>
-          </div>
+          </v-card>
         </template>
       </draggable>
     </v-col>
   </v-row>
-
   <v-dialog
     v-model="dialogConfirmChanges"
     width="auto"
@@ -157,19 +188,17 @@ export default defineComponent({
   },
   methods: {
     toggleTitleEditMode() {
-      console.log("title", this.isTitleEditing);
-
       this.isTitleEditing = !this.isTitleEditing;
     },
     titleChanged(e: any) {
-      console.log("123 ", e.target.innerText);
-    },
-    descriptionChanged(e: any) {
-      console.log("123", e.target.innerText);
+      this.selectedForm.formTitle = e.target.innerText;
     },
     toggleDescriptionEditMode() {
-      console.log("description", this.isTitleEditing);
       this.isDescriptionEditing = !this.isDescriptionEditing;
+    },
+    descriptionChanged(e: any) {
+      this.selectedForm.formDescription = e.target.innerText;
+      this.selectedForm.addedFields[0].name.label = e.target.innerText;
     },
     deleteSelectedField(index: number) {
       this.$forceUpdate;
@@ -184,6 +213,13 @@ export default defineComponent({
     },
     handleSaveChanges() {
       this.dialogConfirmChanges = false;
+    },
+    handleItemLabelChange(event: any, id: string) {
+      let selectedItem = this.selectedForm.addedFields.findIndex(
+        (el) => el.id == id
+      );
+
+      this.selectedForm.addedFields[selectedItem].name.label = event;
     },
   },
 });
@@ -210,6 +246,12 @@ export default defineComponent({
 .isEditingContent {
   border: 1px solid blueviolet;
   border-radius: 5px;
+}
+
+.customCss {
+  border: 1px dotted green;
+  background-color: darkgray;
+  color: black;
 }
 </style>
 <!-- :style="
