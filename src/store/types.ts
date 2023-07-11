@@ -1,7 +1,7 @@
 type FormFields = {
   id: string;
+  label: string;
   name: {
-    label: string;
     name: string;
     id: number;
   };

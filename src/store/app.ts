@@ -37,6 +37,7 @@ export const useDraggableStore = defineStore("draggableStore", {
       return {
         id: uniqueId,
         name: name,
+        label: "",
       };
     },
   },

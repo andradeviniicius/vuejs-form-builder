@@ -10,7 +10,7 @@
           <div v-for="items in selectedForm!.addedFields" :key="items.id">
             <div v-if="items.name.name === `Campo de texto`">
               <label for="1">
-                {{ items.name.label }}
+                {{ items.label }}
               </label>
               <v-text-field
                 id="1"
@@ -18,9 +18,8 @@
               ></v-text-field>
             </div>
             <div v-if="items.name.name === 'Campo de Sim/Não'">
-              <v-checkbox :label="items.name.label"></v-checkbox>
+              <v-checkbox :label="items.label"></v-checkbox>
             </div>
-            <!-- {{ items.name.label }} -->
           </div>
           <v-alert
             type="info"

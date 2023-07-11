@@ -62,7 +62,7 @@
             <v-text-field
               variant="underlined"
               label="Titulo do item (Clique para editar)"
-              @input="handleItemLabelChange($event.target.value, element.id)"
+              @input="handleItemLabelChange($event.target.value, index)"
             ></v-text-field>
             <v-row justify="space-between">
               <v-btn-group variant="outlined">
@@ -74,7 +74,7 @@
                       : 'mdi-check'
                   "
                 >
-                  {{ mdAndUp ? element.name.name : '' }}
+                  {{ mdAndUp ? element.name.name : "" }}
                 </v-btn>
                 <v-btn
                   size="small"
@@ -94,6 +94,11 @@
           </v-card>
         </template>
       </draggable>
+    </v-col>
+    <v-col>
+      <pre>
+        {{ selectedForm }}
+      </pre>
     </v-col>
   </v-row>
   <v-dialog
@@ -220,17 +225,9 @@ export default defineComponent({
     handleSaveChanges() {
       this.dialogConfirmChanges = false;
     },
-    handleItemLabelChange(event: any, id: string) {
-      console.log(id);
+    handleItemLabelChange(event: any, id: number) {
 
-      let selectedItem = this.selectedForm.addedFields.findIndex(
-        (el) => el.id == id
-      );
-
-      console.log(selectedItem);
-      console.log(this.selectedForm.addedFields[selectedItem]);
-
-      this.selectedForm.addedFields[selectedItem].name.label = event;
+      this.selectedForm.addedFields[id].label = event;
     },
   },
 });
