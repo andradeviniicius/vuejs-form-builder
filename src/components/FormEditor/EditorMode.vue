@@ -63,7 +63,6 @@
               variant="underlined"
               label="Titulo do item (Clique para editar)"
               @input="handleItemLabelChange($event.target.value, element.id)"
-              :model-value="element.name.label"
             ></v-text-field>
             <v-btn-group variant="outlined">
               <v-btn
@@ -198,7 +197,7 @@ export default defineComponent({
     },
     descriptionChanged(e: any) {
       this.selectedForm.formDescription = e.target.innerText;
-      this.selectedForm.addedFields[0].name.label = e.target.innerText;
+      this.selectedForm.formDescription = e.target.innerText;
     },
     deleteSelectedField(index: number) {
       this.$forceUpdate;
@@ -215,9 +214,15 @@ export default defineComponent({
       this.dialogConfirmChanges = false;
     },
     handleItemLabelChange(event: any, id: string) {
+      console.log(id);
+      
       let selectedItem = this.selectedForm.addedFields.findIndex(
         (el) => el.id == id
       );
+
+      console.log(selectedItem);
+      console.log( this.selectedForm.addedFields[selectedItem]);
+      
 
       this.selectedForm.addedFields[selectedItem].name.label = event;
     },
@@ -254,8 +259,3 @@ export default defineComponent({
   color: black;
 }
 </style>
-<!-- :style="
-            isDescriptionEditing
-              ? { border: '1px solid blueviolet', borderRadius: '5px' }
-              : ''
-          " -->
