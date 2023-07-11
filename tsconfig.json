@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
-    "compilerOptions": {
-      "types": ["cypress"]
-    },
     "target": "esnext",
     "useDefineForClassFields": true,
     "allowSyntheticDefaultImports": true,

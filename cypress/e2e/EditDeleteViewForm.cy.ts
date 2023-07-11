@@ -1,6 +1,4 @@
-import { createMemoryHistory, createRouter } from "vue-router";
-import routes from "../../src/router";
-import { beforeEach } from "node:test";
+/// <reference types="Cypress" />
 
 describe("template spec", () => {
   it("Edit, Delete and View Form", () => {
