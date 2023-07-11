@@ -95,6 +95,11 @@
         </template>
       </draggable>
     </v-col>
+    <v-col>
+      <pre>
+        {{selectedForm}}
+      </pre>
+    </v-col>
   </v-row>
   <v-dialog
     v-model="dialogConfirmChanges"
@@ -212,6 +217,8 @@ export default defineComponent({
     },
     handleRejectChanges() {
       this.selectedForm.addedFields = this.selectedformFromLocal.addedFields;
+      this.selectedForm.formTitle = this.selectedformFromLocal.formTitle;
+      this.selectedForm.formDescription = this.selectedformFromLocal.formDescription;
 
       this.hasUnsavedChanges = false;
       this.dialogConfirmChanges = false;
