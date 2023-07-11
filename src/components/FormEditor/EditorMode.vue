@@ -5,7 +5,8 @@
         <h3
           @input="titleChanged"
           v-bind:contenteditable="isTitleEditing"
-          class="mr-3"
+          class="mr-3 pa-1"
+          :class="isTitleEditing ? 'isEditingContent' : ''"
         >
           {{ selectedForm.formTitle }}
         </h3>
@@ -18,8 +19,9 @@
       </div>
       <div class="ma-5 d-flex flex-row align-center">
         <h3
-          class="mr-3"
+          class="mr-3 pa-1"
           v-bind:contenteditable="isDescriptionEditing"
+          :class="isDescriptionEditing ? 'isEditingContent' : ''"
         >
           {{ selectedForm.formDescription }}
         </h3>
@@ -60,6 +62,7 @@
   <v-dialog
     v-model="dialogConfirmChanges"
     width="auto"
+    :fullscreen="!mdAndUp ? true : false"
   >
     <v-card>
       <v-card-title class="text-h5">
@@ -80,7 +83,7 @@
           variant="text"
           @click="handleSaveChanges"
         >
-          Sim, preciso salvar!
+          Sim!
         </v-btn>
       </v-card-actions>
     </v-card>
@@ -95,6 +98,7 @@ import { defineComponent, watch } from "vue";
 import { shallowEqual } from "@/utils/index";
 import { storeToRefs } from "pinia";
 import { useRoute } from "vue-router";
+import { useDisplay } from "vuetify/lib/framework.mjs";
 
 export default defineComponent({
   name: "EditorMode",
@@ -103,14 +107,14 @@ export default defineComponent({
     draggable,
   },
   watch: {
-    selectedForm(updatedValue) {
-    },
+    selectedForm(updatedValue) {},
   },
 
   setup() {
     const route = useRoute();
     const store = useLocalStorage();
     const { dialogConfirmChanges, hasUnsavedChanges } = storeToRefs(store);
+    const { mdAndUp } = useDisplay();
 
     let selectedForm = store.registeredForms.find(
       (obj: any) => obj.id == route.params.id
@@ -126,11 +130,6 @@ export default defineComponent({
         selectedForm
       );
 
-      // console.log("teo local", this.selectedformFromLocal);
-      // console.log("teo seectet", this.selectedForm);
-
-      // console.log("equal", isEditedFormAndStoredFormEqual);
-
       if (!isEditedFormAndStoredFormEqual) {
         store.hasUnsavedChanges = true;
       } else {
@@ -142,36 +141,34 @@ export default defineComponent({
       hasUnsavedChanges: hasUnsavedChanges,
       dialogConfirmChanges: dialogConfirmChanges,
 
-      isTitleEditing: false,
-      isDescriptionEditing: false,
-
       selectedForm: selectedForm!,
       selectedformFromLocal: getformFromLocal(),
       formFromLocal: getformFromLocal(),
 
       formsStore: store,
+      mdAndUp,
     };
   },
-  data() {},
+  data() {
+    return {
+      isTitleEditing: false,
+      isDescriptionEditing: false,
+    };
+  },
   methods: {
     toggleTitleEditMode() {
-      if (this.isTitleEditing) {
-        // save title
-      }
+      console.log("title", this.isTitleEditing);
 
       this.isTitleEditing = !this.isTitleEditing;
     },
     titleChanged(e: any) {
-      console.log("123", e.target.innerText);
+      console.log("123 ", e.target.innerText);
     },
     descriptionChanged(e: any) {
       console.log("123", e.target.innerText);
     },
     toggleDescriptionEditMode() {
-      if (this.isDescriptionEditing) {
-        // save description
-      }
-
+      console.log("description", this.isTitleEditing);
       this.isDescriptionEditing = !this.isDescriptionEditing;
     },
     deleteSelectedField(index: number) {
@@ -209,4 +206,14 @@ export default defineComponent({
   flex-direction: column;
   gap: 15px;
 }
+
+.isEditingContent {
+  border: 1px solid blueviolet;
+  border-radius: 5px;
+}
 </style>
+<!-- :style="
+            isDescriptionEditing
+              ? { border: '1px solid blueviolet', borderRadius: '5px' }
+              : ''
+          " -->

@@ -28,12 +28,13 @@
       <v-col class="d-flex justify-end">
         <v-btn
           v-if="mdAndUp"
-          @click="createNewForm"
           size="large"
           prepend-icon="mdi-plus"
+          @click="createNewForm"
           >Criar novo form</v-btn
         >
         <v-btn
+          @click="createNewForm"
           v-if="!mdAndUp"
           icon="mdi-plus"
           size="large"

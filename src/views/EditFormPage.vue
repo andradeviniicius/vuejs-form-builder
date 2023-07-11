@@ -4,6 +4,9 @@
       <v-navigation-drawer
         v-model="isDrawerOpen"
         :permanent="mdAndUp"
+        :location="mdAndUp ? 'left' : 'bottom'"
+        draggable="false"
+        hide-overlay
       >
         <v-list-item title="Componentes disponíveis"></v-list-item>
 
