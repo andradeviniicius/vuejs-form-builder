@@ -1,4 +1,4 @@
-export function generateUniqueID(existingIDs) {
+export function generateUniqueID(existingIDs: any) {
   let uniqueID;
   do {
     uniqueID = generateRandomID();
@@ -10,7 +10,7 @@ function generateRandomID() {
   return Math.random().toString(36).substring(2);
 }
 
-export function findNextAvailableId(registeredForms) {
+export function findNextAvailableId(registeredForms: any) {
   let id = 0;
   for (let i = 0; i < registeredForms.length; i++) {
     if (registeredForms[i].id >= id) {
@@ -20,7 +20,7 @@ export function findNextAvailableId(registeredForms) {
   return id;
 }
 
-export function shallowEqual(object1, object2) {
+export function shallowEqual(object1: any, object2: any) {
   const keys1 = Object.keys(object1);
   const keys2 = Object.keys(object2);
 
@@ -42,6 +42,6 @@ export function shallowEqual(object1, object2) {
 
   return true;
 }
-function isObject(object) {
+function isObject(object: any) {
   return object != null && typeof object === "object";
 }

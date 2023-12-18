@@ -48,7 +48,7 @@ const router = createRouter({
 });
 router.beforeEach((to) => {
   const store = useLocalStorage();
-  const a = store.registeredForms.filter((el) => {
+  const a = store.registeredForms.filter((el: any) => {
     return el.id == to.params.id;
   });
 
