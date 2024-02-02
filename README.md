@@ -80,7 +80,7 @@ Sinta-se à vontade para explorar e modificar o projeto conforme a necessidade
 
 
 <details>
-<summary>README PT-BR</summary>
+<summary>README EN-US </summary>
 
 # ExpressForms
 
