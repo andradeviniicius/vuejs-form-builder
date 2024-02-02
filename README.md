@@ -1,3 +1,6 @@
+<details>
+<summary>README PT-BR</summary>
+
 # ExpressForms
 
 Este é um projeto Vue que fornece um simples construtor de formulários. 
@@ -67,3 +70,86 @@ npx cypress open
 
 Feshow! Agora você deve ter o ExpressForms configurado em sua máquina local e pode executá-lo, bem como realizar testes integrados usando o Cypress. 
 Sinta-se à vontade para explorar e modificar o projeto conforme a necessidade
+</details>
+
+
+
+
+
+
+
+
+<details>
+<summary>README PT-BR</summary>
+
+# ExpressForms
+
+This is a Vue project that provides a simple form builder. 
+
+Below you can follow the instructions to run the project and execute integrated tests using Cypress. 
+Follow the steps below to get started.
+
+## Prerequisites
+
+Make sure you have the following software installed on your machine before proceeding:
+
+- Node.js
+- npm (Node Package Manager)
+- Git
+
+## Installation and configuration
+1. Open your terminal.
+2. Clone the project repository by running the following command:
+
+```
+git clone https://github.com/andradeviniicius/vuejs-form-builder.git
+```
+
+3. Change to the project directory by running the following command:
+```
+cd vuejs-form-builder
+``` 
+
+4. Install the dependencies with the command below:
+```
+npm install 
+```
+or
+```
+yarn install
+``` 
+## Viewing the project
+
+To run the project locally, follow these steps:
+
+1. Make sure you are in the project directory in your terminal.
+
+2. Start the development server by running the following command:
+```
+npm run dev
+```
+or
+```
+yarn run dev
+``` 
+3. Open your web browser and navigate to `http://localhost:3000` to access the application.
+
+## Integrated Tests (Cypress)
+
+If you want to view the integrated tests using Cypress, follow these additional steps:
+
+1. Make sure you have the project dependencies installed by running `npm install` (if you haven't already).
+
+2. Open your terminal and navigate to the project directory, if it isn't already there.
+Note: Make sure the application is already running (`npm run dev`) before running the tests.
+
+3. Run the following command to open the Cypress Test Runner:
+```
+npx cypress open
+``` 
+4. The Cypress Test Runner will start, displaying a list of available tests. Click on one of them to run the tests.
+
+Feshow! You should now have ExpressForms set up on your local machine and can run it, as well as perform integrated tests using Cypress. 
+Feel free to explore and modify the project as needed
+</details>
+
