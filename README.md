@@ -149,7 +149,7 @@ npx cypress open
 ``` 
 4. The Cypress Test Runner will start, displaying a list of available tests. Click on one of them to run the tests.
 
-Feshow! You should now have ExpressForms set up on your local machine and can run it, as well as perform integrated tests using Cypress. 
+Nice! You should now have ExpressForms set up on your local machine and can run it, as well as perform integrated tests using Cypress. 
 Feel free to explore and modify the project as needed
 </details>
 
